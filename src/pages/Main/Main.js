@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from "react";
 import "./Main.scss";
 import "./Main_comment.scss";
 import "../../styles/common.scss";
@@ -78,17 +79,28 @@ const Main = () => {
   //     commentInput.value = "";
   //   }
   // });
-
+  const [comment, setComment] = useState("");
   // 게시글 버튼 글자 색상 / 활성화 및 비활성화 조건 구현
-  function buttonColor() {
-    let commentBx = document.querySelector(".main_comment_box");
-    let commentBtn = document.querySelector(".main_comment_btn");
-    if (commentBx.value.length === 0) {
-      commentBtn.style.color = "#bddbf9";
+  const mainCommentBox = useRef();
+  const mainCommentBtn = useRef();
+  // function buttonColor(e) {
+  //   e.preventDefault();
+  //   // let commentBx = document.querySelector(".mainCommentBox");
+  //   // let commentBtn = document.querySelector(".mainCommentBtn");
+  //   if (comment.length === 0) {
+  //     mainCommentBtn.current.style.color = "#bddbf9";
+  //   } else {
+  //     mainCommentBtn.current.style.color = "#0989f1";
+  //   }
+  // }
+  useEffect(() => {
+    if (comment.length === 0) {
+      mainCommentBtn.current.style.color = "#bddbf9";
     } else {
-      commentBtn.style.color = "#0989f1";
+      mainCommentBtn.current.style.color = "#0989f1";
     }
-  }
+  }, [comment]);
+
   return (
     <div className="main">
       <nav className="navbar">
@@ -173,15 +185,21 @@ const Main = () => {
                 <div className="postTime">42분 전</div>
               </div>
             </footer>
-            <div className="commentBox">
+            <form className="commentBox">
               <input
                 className="mainCommentBox"
                 type="text"
                 placeholder="댓글 달기..."
-                onInput={buttonColor}
+                ref={mainCommentBox}
+                // onInput={buttonColor}
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
               />
-              <button className="mainCommentBtn">게시</button>
-            </div>
+              <button ref={mainCommentBtn} className="mainCommentBtn">
+                게시
+              </button>
+            </form>
           </article>
         </section>
         <section className="mainRight">
@@ -351,7 +369,7 @@ const Main = () => {
                     <div className="nameInfo">Delta님 외 4명이 ...</div>
                   </div>
                 </div>
-                <div className="follow_Bn">
+                <div className="followBtn">
                   <button>팔로우</button>
                 </div>
               </div>

@@ -1,3 +1,5 @@
+@import url("../../styles/reset.scss");
+
 .navbar {
     position: fixed;
     display: flex;
@@ -6,7 +8,8 @@
     align-items: center;
     border-bottom: 1px solid #eeeeee;
     background-color: white;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     z-index: 10;
 }
 .westaLogo {
